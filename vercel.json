@@ -1,0 +1,5 @@
+{
+    "functions": {
+      "app/**": { "includeFiles": "public/data/*.db,public/data/database-index.json" }
+    }
+  }

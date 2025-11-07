@@ -1,0 +1,9 @@
+{
+  "chunks": 2,
+  "totalRecords": 589284,
+  "recordsPerChunk": 347276,
+  "files": [
+    "cards_1.db",
+    "cards_2.db"
+  ]
+}

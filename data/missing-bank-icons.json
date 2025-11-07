@@ -1,0 +1,836 @@
+{
+  "summary": {
+    "total_banks": 465,
+    "matched_banks": 300,
+    "missing_banks": 165,
+    "total_cards_with_icons": 8625,
+    "total_cards_without_icons": 981
+  },
+  "missing_icons": [
+    {
+      "bank_name": "Unknown Issuer",
+      "card_count": 125,
+      "suggested_search": "unknown issuer"
+    },
+    {
+      "bank_name": "AE AUSTRALIA LTD GSTAR CONS REVOLVE",
+      "card_count": 44,
+      "suggested_search": "australia ltd"
+    },
+    {
+      "bank_name": "MITSUBISHI UFJ NICOS CO., LTD",
+      "card_count": 33,
+      "suggested_search": "mitsubishi ufj"
+    },
+    {
+      "bank_name": "BUNQ B.V.",
+      "card_count": 31,
+      "suggested_search": "bunq"
+    },
+    {
+      "bank_name": "BOURSORAMA BANQUE",
+      "card_count": 29,
+      "suggested_search": "boursorama banque"
+    },
+    {
+      "bank_name": "SWEDBANK AB",
+      "card_count": 27,
+      "suggested_search": "swedbank"
+    },
+    {
+      "bank_name": "CREDIT SAISON CO., LTD.",
+      "card_count": 26,
+      "suggested_search": "credit saison"
+    },
+    {
+      "bank_name": "ALLIED IRISH BANKS, P.L.C.",
+      "card_count": 24,
+      "suggested_search": "allied irish"
+    },
+    {
+      "bank_name": "BPCE",
+      "card_count": 23,
+      "suggested_search": "bpce"
+    },
+    {
+      "bank_name": "SKANDINAVISKA ENSKILDA BANKEN AB",
+      "card_count": 22,
+      "suggested_search": "skandinaviska enskilda"
+    },
+    {
+      "bank_name": "AEI ITALY GSTAR CON CHARGE",
+      "card_count": 20,
+      "suggested_search": "aei italy"
+    },
+    {
+      "bank_name": "INTESA SANPAOLO SPA",
+      "card_count": 19,
+      "suggested_search": "intesa sanpaolo"
+    },
+    {
+      "bank_name": "LANDESBANK BERLIN AG",
+      "card_count": 19,
+      "suggested_search": "landesbank berlin"
+    },
+    {
+      "bank_name": "MBANK, S.A.",
+      "card_count": 19,
+      "suggested_search": "mbank"
+    },
+    {
+      "bank_name": "CREDIT AGRICOLE, S.A.",
+      "card_count": 18,
+      "suggested_search": "credit agricole"
+    },
+    {
+      "bank_name": "NEXI PAYMENTS SPA",
+      "card_count": 16,
+      "suggested_search": "nexi payments"
+    },
+    {
+      "bank_name": "SOLARIS SE",
+      "card_count": 15,
+      "suggested_search": "solaris"
+    },
+    {
+      "bank_name": "AEESA NORWAY CHARGE GLOBESTAR",
+      "card_count": 14,
+      "suggested_search": "aeesa norway"
+    },
+    {
+      "bank_name": "TATRA BANKA, A.S.",
+      "card_count": 14,
+      "suggested_search": "tatra banka"
+    },
+    {
+      "bank_name": "VISALUX S.C.",
+      "card_count": 13,
+      "suggested_search": "visalux"
+    },
+    {
+      "bank_name": "BANQUE POUR LE COMMERCE EXTERIEUR LAO",
+      "card_count": 12,
+      "suggested_search": "banque pour"
+    },
+    {
+      "bank_name": "BNP PARIBAS",
+      "card_count": 11,
+      "suggested_search": "bnp paribas"
+    },
+    {
+      "bank_name": "BNP PARIBAS FORTIS NV/SA.",
+      "card_count": 11,
+      "suggested_search": "bnp paribas"
+    },
+    {
+      "bank_name": "MITSUBISHI UFJ NICOS CO., LTD.",
+      "card_count": 11,
+      "suggested_search": "mitsubishi ufj"
+    },
+    {
+      "bank_name": "LANDESBANK BADEN-WUERTTEMBERG",
+      "card_count": 10,
+      "suggested_search": "landesbank badenwuerttemberg"
+    },
+    {
+      "bank_name": "REVOLUT PAYMENTS AUSTRALIA PTY, LTD.",
+      "card_count": 10,
+      "suggested_search": "revolut payments"
+    },
+    {
+      "bank_name": "SOCIEDAD CONJUNTA PARA LA EMISION Y GESTION DE MEDIOS DE PAGO, E.F.C., S.A.",
+      "card_count": 10,
+      "suggested_search": "sociedad conjunta"
+    },
+    {
+      "bank_name": "CURVE UK, LTD.",
+      "card_count": 9,
+      "suggested_search": "curve ltd"
+    },
+    {
+      "bank_name": "HERITAGE AND PEOPLE'S CHOICE, LTD.",
+      "card_count": 9,
+      "suggested_search": "heritage and"
+    },
+    {
+      "bank_name": "LATITUDE FINANCE AUSTRALIA",
+      "card_count": 9,
+      "suggested_search": "latitude finance"
+    },
+    {
+      "bank_name": "RAIFFEISENBANK, A.S.",
+      "card_count": 9,
+      "suggested_search": "raiffeisenbank"
+    },
+    {
+      "bank_name": "BRIM FINANCIAL INC.",
+      "card_count": 8,
+      "suggested_search": "brim financial"
+    },
+    {
+      "bank_name": "JCB THE CLASS",
+      "card_count": 8,
+      "suggested_search": "jcb the"
+    },
+    {
+      "bank_name": "VJA",
+      "card_count": 8,
+      "suggested_search": "vja"
+    },
+    {
+      "bank_name": "ARGENTA SPAARBANK",
+      "card_count": 7,
+      "suggested_search": "argenta spaarbank"
+    },
+    {
+      "bank_name": "EURO KARTENSYSTEME GMBH",
+      "card_count": 7,
+      "suggested_search": "euro kartensysteme"
+    },
+    {
+      "bank_name": "BANQUE FEDERATIVE DU CREDIT MUTUEL (BFCM)",
+      "card_count": 6,
+      "suggested_search": "banque federative"
+    },
+    {
+      "bank_name": "FEDERATION DES CAISSES DESJARDINS DU QUEBEC",
+      "card_count": 6,
+      "suggested_search": "federation des"
+    },
+    {
+      "bank_name": "KC",
+      "card_count": 6,
+      "suggested_search": "kc"
+    },
+    {
+      "bank_name": "LIFECARD CO., LTD.",
+      "card_count": 6,
+      "suggested_search": "lifecard ltd"
+    },
+    {
+      "bank_name": "TOYOTA FINANCE CORPORATION",
+      "card_count": 6,
+      "suggested_search": "toyota finance"
+    },
+    {
+      "bank_name": "CESKOSLOVENSKA OBCHODNI BANKA, A.S.",
+      "card_count": 5,
+      "suggested_search": "ceskoslovenska obchodni"
+    },
+    {
+      "bank_name": "CREDIT UNION AUSTRALIA LTD.",
+      "card_count": 5,
+      "suggested_search": "credit union"
+    },
+    {
+      "bank_name": "KUTXABANK, S.A.",
+      "card_count": 5,
+      "suggested_search": "kutxabank"
+    },
+    {
+      "bank_name": "MASTERCAJAS, S.A.",
+      "card_count": 5,
+      "suggested_search": "mastercajas"
+    },
+    {
+      "bank_name": "NEXI PAYMENTS S.P.A.",
+      "card_count": 5,
+      "suggested_search": "nexi payments"
+    },
+    {
+      "bank_name": "ORIENT CORPORATION",
+      "card_count": 5,
+      "suggested_search": "orient corporation"
+    },
+    {
+      "bank_name": "PERBADANAN TABUNG AMANAH ISLAM BRUNEI",
+      "card_count": 5,
+      "suggested_search": "perbadanan tabung"
+    },
+    {
+      "bank_name": "SLOVENSKA SPORITELNA, A.S.",
+      "card_count": 5,
+      "suggested_search": "slovenska sporitelna"
+    },
+    {
+      "bank_name": "BANCA NAZIONALE DEL LAVORO S.P.A. - BNL",
+      "card_count": 4,
+      "suggested_search": "banca nazionale"
+    },
+    {
+      "bank_name": "BANCA TRANSILVANIA, S.A.",
+      "card_count": 4,
+      "suggested_search": "banca transilvania"
+    },
+    {
+      "bank_name": "BEOBANK NV/SA",
+      "card_count": 4,
+      "suggested_search": "beobank nvsa"
+    },
+    {
+      "bank_name": "BIBANCA S.P.A.",
+      "card_count": 4,
+      "suggested_search": "bibanca spa"
+    },
+    {
+      "bank_name": "BOKIS",
+      "card_count": 4,
+      "suggested_search": "bokis"
+    },
+    {
+      "bank_name": "CRELAN",
+      "card_count": 4,
+      "suggested_search": "crelan"
+    },
+    {
+      "bank_name": "DELAVSKA HRANILNICA D.D. LJUBLJANA",
+      "card_count": 4,
+      "suggested_search": "delavska hranilnica"
+    },
+    {
+      "bank_name": "DEZELNA BANKA SLOVENIJE D.D.",
+      "card_count": 4,
+      "suggested_search": "dezelna banka"
+    },
+    {
+      "bank_name": "NUMIA SPA",
+      "card_count": 4,
+      "suggested_search": "numia spa"
+    },
+    {
+      "bank_name": "PATHWARD, N.A.",
+      "card_count": 4,
+      "suggested_search": "pathward"
+    },
+    {
+      "bank_name": "UNICREDIT SPA",
+      "card_count": 4,
+      "suggested_search": "unicredit spa"
+    },
+    {
+      "bank_name": "AEESA FINLAND GSTAR CONS REVOLVE",
+      "card_count": 3,
+      "suggested_search": "aeesa finland"
+    },
+    {
+      "bank_name": "CREDIT SAISON",
+      "card_count": 3,
+      "suggested_search": "credit saison"
+    },
+    {
+      "bank_name": "EML PAYMENT SOLUTIONS, LTD.",
+      "card_count": 3,
+      "suggested_search": "eml payment"
+    },
+    {
+      "bank_name": "FINECOBANK S.P.A.",
+      "card_count": 3,
+      "suggested_search": "finecobank spa"
+    },
+    {
+      "bank_name": "INTESA SANPAOLO S.P.A.",
+      "card_count": 3,
+      "suggested_search": "intesa sanpaolo"
+    },
+    {
+      "bank_name": "JAL",
+      "card_count": 3,
+      "suggested_search": "jal"
+    },
+    {
+      "bank_name": "NEAT, LTD.",
+      "card_count": 3,
+      "suggested_search": "neat ltd"
+    },
+    {
+      "bank_name": "NORFINA, LTD.",
+      "card_count": 3,
+      "suggested_search": "norfina ltd"
+    },
+    {
+      "bank_name": "PAYPAL (EUROPE) S.A.R.L & CIE, S.C.A",
+      "card_count": 3,
+      "suggested_search": "paypal europe"
+    },
+    {
+      "bank_name": "POSTEPAY S.P.A",
+      "card_count": 3,
+      "suggested_search": "postepay spa"
+    },
+    {
+      "bank_name": "POSTEPAY S.P.A.",
+      "card_count": 3,
+      "suggested_search": "postepay spa"
+    },
+    {
+      "bank_name": "SERVIRED, SOCIEDAD ESPANOLA DE MEDIOS DE PAGO S.A.",
+      "card_count": 3,
+      "suggested_search": "servired sociedad"
+    },
+    {
+      "bank_name": "SPAREKASSEN THY",
+      "card_count": 3,
+      "suggested_search": "sparekassen thy"
+    },
+    {
+      "bank_name": "TAKASHIMAYA FINANCIAL PARTNERS CO.,LTD",
+      "card_count": 3,
+      "suggested_search": "takashimaya financial"
+    },
+    {
+      "bank_name": "TARGOBANK AG",
+      "card_count": 3,
+      "suggested_search": "targobank"
+    },
+    {
+      "bank_name": "TRUSTONE FINANCIAL CREDIT UNION",
+      "card_count": 3,
+      "suggested_search": "trustone financial"
+    },
+    {
+      "bank_name": "UAB ZEN.COM",
+      "card_count": 3,
+      "suggested_search": "uab zencom"
+    },
+    {
+      "bank_name": "UNICREDIT S.P.A.",
+      "card_count": 3,
+      "suggested_search": "unicredit spa"
+    },
+    {
+      "bank_name": "VERBAND DER SPARDA BANKEN E.V.",
+      "card_count": 3,
+      "suggested_search": "verband der"
+    },
+    {
+      "bank_name": "VYSTAR CREDIT UNION",
+      "card_count": 3,
+      "suggested_search": "vystar credit"
+    },
+    {
+      "bank_name": "BANCA COMERCIALA ROMANA, S.A.",
+      "card_count": 2,
+      "suggested_search": "banca comerciala"
+    },
+    {
+      "bank_name": "BANCA SELLA SPA",
+      "card_count": 2,
+      "suggested_search": "banca sella"
+    },
+    {
+      "bank_name": "BNP PARIBAS FORTIS",
+      "card_count": 2,
+      "suggested_search": "bnp paribas"
+    },
+    {
+      "bank_name": "BUY WAY PERSONAL FINANCE SA",
+      "card_count": 2,
+      "suggested_search": "buy way"
+    },
+    {
+      "bank_name": "EMPEOPLE CREDIT UNION",
+      "card_count": 2,
+      "suggested_search": "empeople credit"
+    },
+    {
+      "bank_name": "ENTERCARD GROUP AB",
+      "card_count": 2,
+      "suggested_search": "entercard group"
+    },
+    {
+      "bank_name": "EUROPAY BELGIUM S.C.R.L.",
+      "card_count": 2,
+      "suggested_search": "europay belgium"
+    },
+    {
+      "bank_name": "FIO BANKA, A.S.",
+      "card_count": 2,
+      "suggested_search": "fio banka"
+    },
+    {
+      "bank_name": "JACCS CO., LTD.",
+      "card_count": 2,
+      "suggested_search": "jaccs ltd"
+    },
+    {
+      "bank_name": "JACK HENRY & ASSOCIATES",
+      "card_count": 2,
+      "suggested_search": "jack henry"
+    },
+    {
+      "bank_name": "LIFECARD CO.,LTD.",
+      "card_count": 2,
+      "suggested_search": "lifecard coltd"
+    },
+    {
+      "bank_name": "MICARD CO., LTD",
+      "card_count": 2,
+      "suggested_search": "micard ltd"
+    },
+    {
+      "bank_name": "MIJICA",
+      "card_count": 2,
+      "suggested_search": "mijica"
+    },
+    {
+      "bank_name": "MITSUBISHI UFJ NICOS CO",
+      "card_count": 2,
+      "suggested_search": "mitsubishi ufj"
+    },
+    {
+      "bank_name": "NEWCASTLE GREATER MUTUAL GROUP, LTD.",
+      "card_count": 2,
+      "suggested_search": "newcastle greater"
+    },
+    {
+      "bank_name": "PATELCO CREDIT UNION",
+      "card_count": 2,
+      "suggested_search": "patelco credit"
+    },
+    {
+      "bank_name": "PSCU INCORPORATED",
+      "card_count": 2,
+      "suggested_search": "pscu incorporated"
+    },
+    {
+      "bank_name": "REDWOOD CREDIT UNION",
+      "card_count": 2,
+      "suggested_search": "redwood credit"
+    },
+    {
+      "bank_name": "SWEDBANK AS",
+      "card_count": 2,
+      "suggested_search": "swedbank"
+    },
+    {
+      "bank_name": "SYDBANK A/S",
+      "card_count": 2,
+      "suggested_search": "sydbank"
+    },
+    {
+      "bank_name": "TWISTO PAYMENTS, A.S.",
+      "card_count": 2,
+      "suggested_search": "twisto payments"
+    },
+    {
+      "bank_name": "VIRGINIA CREDIT UNION, INC.",
+      "card_count": 2,
+      "suggested_search": "virginia credit"
+    },
+    {
+      "bank_name": "AEESA BRANCH SWEDEN GSTAR CON",
+      "card_count": 1,
+      "suggested_search": "aeesa branch"
+    },
+    {
+      "bank_name": "AEII HONG KONG - GSTAR CONS REVOLVE",
+      "card_count": 1,
+      "suggested_search": "aeii hong"
+    },
+    {
+      "bank_name": "APLUS CO., LTD.",
+      "card_count": 1,
+      "suggested_search": "aplus ltd"
+    },
+    {
+      "bank_name": "AVANTCARD, LTD.",
+      "card_count": 1,
+      "suggested_search": "avantcard ltd"
+    },
+    {
+      "bank_name": "BANKESB",
+      "card_count": 1,
+      "suggested_search": "bankesb"
+    },
+    {
+      "bank_name": "BANKINTER, S.A.",
+      "card_count": 1,
+      "suggested_search": "bankinter"
+    },
+    {
+      "bank_name": "BBVA USA",
+      "card_count": 1,
+      "suggested_search": "bbva usa"
+    },
+    {
+      "bank_name": "BPOST S.A. DE DROIT PUBLIC - BPOST NV VAN PUBLIEK RECHT",
+      "card_count": 1,
+      "suggested_search": "bpost droit"
+    },
+    {
+      "bank_name": "CAJA DE ARQUITECTOS",
+      "card_count": 1,
+      "suggested_search": "caja arquitectos"
+    },
+    {
+      "bank_name": "CARREFOUR BANQUE",
+      "card_count": 1,
+      "suggested_search": "carrefour banque"
+    },
+    {
+      "bank_name": "CESKOSLOVENSKA OBCHODNA BANKA, A.S.",
+      "card_count": 1,
+      "suggested_search": "ceskoslovenska obchodna"
+    },
+    {
+      "bank_name": "CITIX",
+      "card_count": 1,
+      "suggested_search": "citix"
+    },
+    {
+      "bank_name": "COMMUNITYAMERICA CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "communityamerica credit"
+    },
+    {
+      "bank_name": "COMPASS BANCA SPA",
+      "card_count": 1,
+      "suggested_search": "compass banca"
+    },
+    {
+      "bank_name": "CREDIT AGRICOLE SOCIETE ANONYME",
+      "card_count": 1,
+      "suggested_search": "credit agricole"
+    },
+    {
+      "bank_name": "CU COOPERATIVE SYSTEMS, LLC",
+      "card_count": 1,
+      "suggested_search": "cooperative systems"
+    },
+    {
+      "bank_name": "DECTA, LTD.",
+      "card_count": 1,
+      "suggested_search": "decta ltd"
+    },
+    {
+      "bank_name": "ENT CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "ent credit"
+    },
+    {
+      "bank_name": "EXIM BANCA ROMANEASCA SA",
+      "card_count": 1,
+      "suggested_search": "exim banca"
+    },
+    {
+      "bank_name": "FIFTH THIRD MB FINANCIAL",
+      "card_count": 1,
+      "suggested_search": "fifth third"
+    },
+    {
+      "bank_name": "FIRST FINANCIAL CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "first financial"
+    },
+    {
+      "bank_name": "FIVE STAR CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "five star"
+    },
+    {
+      "bank_name": "FUKUOKA",
+      "card_count": 1,
+      "suggested_search": "fukuoka"
+    },
+    {
+      "bank_name": "GLENDALE AREA SCHOOLS CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "glendale area"
+    },
+    {
+      "bank_name": "HANA PLUS",
+      "card_count": 1,
+      "suggested_search": "hana plus"
+    },
+    {
+      "bank_name": "HOKKAIDO GRANDE",
+      "card_count": 1,
+      "suggested_search": "hokkaido grande"
+    },
+    {
+      "bank_name": "ISRACARD, LTD.",
+      "card_count": 1,
+      "suggested_search": "isracard ltd"
+    },
+    {
+      "bank_name": "JEANNE D'ARC CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "jeanne darc"
+    },
+    {
+      "bank_name": "JKJK",
+      "card_count": 1,
+      "suggested_search": "jkjk"
+    },
+    {
+      "bank_name": "KANMU, INC.",
+      "card_count": 1,
+      "suggested_search": "kanmu inc"
+    },
+    {
+      "bank_name": "LBS FINANCIAL CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "lbs financial"
+    },
+    {
+      "bank_name": "LINE PAY",
+      "card_count": 1,
+      "suggested_search": "line pay"
+    },
+    {
+      "bank_name": "LYONNAISE DE BANQUE",
+      "card_count": 1,
+      "suggested_search": "lyonnaise banque"
+    },
+    {
+      "bank_name": "MEIJI UNIVERSITY STUDENT",
+      "card_count": 1,
+      "suggested_search": "meiji university"
+    },
+    {
+      "bank_name": "MENTERO-ZA ORICO",
+      "card_count": 1,
+      "suggested_search": "menteroza orico"
+    },
+    {
+      "bank_name": "MIDFLORIDA CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "midflorida credit"
+    },
+    {
+      "bank_name": "MONAVATE, LTD.",
+      "card_count": 1,
+      "suggested_search": "monavate ltd"
+    },
+    {
+      "bank_name": "MOONEY S.P.A.",
+      "card_count": 1,
+      "suggested_search": "mooney spa"
+    },
+    {
+      "bank_name": "MUNICIPAL CREDIT UNION",
+      "card_count": 1,
+      "suggested_search": "municipal credit"
+    },
+    {
+      "bank_name": "NOVA LJUBLJANSKA BANKA D.D., LJUBLJANA",
+      "card_count": 1,
+      "suggested_search": "nova ljubljanska"
+    },
+    {
+      "bank_name": "NTT FINANCE CORPORATION",
+      "card_count": 1,
+      "suggested_search": "ntt finance"
+    },
+    {
+      "bank_name": "OTP BANKA D.D.",
+      "card_count": 1,
+      "suggested_search": "otp banka"
+    },
+    {
+      "bank_name": "PAYNOVATE SA",
+      "card_count": 1,
+      "suggested_search": "paynovate"
+    },
+    {
+      "bank_name": "PAYRNET, LTD.",
+      "card_count": 1,
+      "suggested_search": "payrnet ltd"
+    },
+    {
+      "bank_name": "PECUNIA CARDS E.D.E., S.L.U.",
+      "card_count": 1,
+      "suggested_search": "pecunia cards"
+    },
+    {
+      "bank_name": "POST LUXEMBOURG",
+      "card_count": 1,
+      "suggested_search": "post luxembourg"
+    },
+    {
+      "bank_name": "SAKURA GRAND",
+      "card_count": 1,
+      "suggested_search": "sakura grand"
+    },
+    {
+      "bank_name": "SCOTIABANK",
+      "card_count": 1,
+      "suggested_search": "scotiabank"
+    },
+    {
+      "bank_name": "SKANDIABANKEN AB",
+      "card_count": 1,
+      "suggested_search": "skandiabanken"
+    },
+    {
+      "bank_name": "TOTALBANKEN A/S",
+      "card_count": 1,
+      "suggested_search": "totalbanken"
+    },
+    {
+      "bank_name": "TRS GLOBAL PREPAID SERVE PLATFORM",
+      "card_count": 1,
+      "suggested_search": "trs global"
+    },
+    {
+      "bank_name": "UAB MANEUVER LT",
+      "card_count": 1,
+      "suggested_search": "uab maneuver"
+    },
+    {
+      "bank_name": "UCS",
+      "card_count": 1,
+      "suggested_search": "ucs"
+    },
+    {
+      "bank_name": "UFJ",
+      "card_count": 1,
+      "suggested_search": "ufj"
+    },
+    {
+      "bank_name": "UNIVERSO, IME, SA",
+      "card_count": 1,
+      "suggested_search": "universo ime"
+    },
+    {
+      "bank_name": "VANILLA",
+      "card_count": 1,
+      "suggested_search": "vanilla"
+    },
+    {
+      "bank_name": "VICTORIA TEACHERS, LTD.",
+      "card_count": 1,
+      "suggested_search": "victoria teachers"
+    },
+    {
+      "bank_name": "VSEOBECNA UVEROVA BANKA, A.S.",
+      "card_count": 1,
+      "suggested_search": "vseobecna uverova"
+    },
+    {
+      "bank_name": "WAW CREDIT UNION CO-OPERATIVE, LTD.",
+      "card_count": 1,
+      "suggested_search": "waw credit"
+    },
+    {
+      "bank_name": "WEBBANK",
+      "card_count": 1,
+      "suggested_search": "webbank"
+    },
+    {
+      "bank_name": "WELLS FARGO",
+      "card_count": 1,
+      "suggested_search": "wells fargo"
+    },
+    {
+      "bank_name": "WITTY GLOBAL UAB",
+      "card_count": 1,
+      "suggested_search": "witty global"
+    },
+    {
+      "bank_name": "ZAGREBACKA BANKA DD",
+      "card_count": 1,
+      "suggested_search": "zagrebacka banka"
+    }
+  ]
+}
