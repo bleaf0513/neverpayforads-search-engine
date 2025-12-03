@@ -1,20 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/app/api/**/*.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": "public/data/*.json"
-      }
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
+  "functions": {
+    "api/*.ts": {
+      "includeFiles": "data/*.json,public/data/*.db,public/data/*.json"
     }
-  ],
-  "routes": [
-    { "src": "/data/(.*)", "dest": "/public/data/$1" },
-    { "src": "/api/(.*)", "dest": "/src/app/api/$1.ts" }
-  ]
+  }
 }
