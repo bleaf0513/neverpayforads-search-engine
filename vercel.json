@@ -1,5 +1,15 @@
 {
-    "functions": {
-      "app/**": { "includeFiles": "public/data/*.db,public/data/database-index.json" }
+  "version": 2,
+  "builds": [
+    { "src": "src/pages/**/*.{js,ts,jsx,tsx}", "use": "@vercel/next" },
+    { "src": "src/api/**/*.ts", "use": "@vercel/node" }
+  ],
+  "functions": {
+    "src/api/**/*.ts": {
+      "includeFiles": "public/data/*.json"
     }
-  }
+  },
+  "routes": [
+    { "src": "/data/(.*)", "dest": "/public/data/$1" }
+  ]
+}
