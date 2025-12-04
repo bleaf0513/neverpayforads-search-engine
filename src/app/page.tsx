@@ -143,10 +143,11 @@ export default function Home() {
         markersRef.current = data.rows
           .filter((c) => c.latitude && c.longitude)
           .map((c) => {
-            const marker = new google.maps.marker.AdvancedMarkerElement({
-            map,
-            position: { lat, lng },
-            });
+const marker = new google.maps.marker.AdvancedMarkerElement({
+  map,
+  position: { lat: c.latitude!, lng: c.longitude! },
+  title: c.cardholder_name,
+});
 
 
             const infoWindow = new google.maps.InfoWindow({
