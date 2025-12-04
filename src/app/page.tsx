@@ -141,7 +141,7 @@ export default function Home() {
 const map = new google.maps.Map(document.getElementById("map-desktop"), {
   center: { lat: 0, lng: 0 },
   zoom: 2,
-  mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // ✅ Add this
+  mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID1, // ✅ Add this
 });
         if (id === "map-desktop") mapRef.current = map;
 
