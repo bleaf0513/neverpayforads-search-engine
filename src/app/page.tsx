@@ -135,7 +135,11 @@ export default function Home() {
         const el = document.getElementById(id);
         if (!el) return;
 
-        const map = new google.maps.Map(el, { center, zoom: 2 });
+        const map = new google.maps.Map(el, {
+  center,
+  zoom: 2,
+  mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // <-- your new Map ID
+});
         if (id === "map-desktop") mapRef.current = map;
 
         // Add markers
