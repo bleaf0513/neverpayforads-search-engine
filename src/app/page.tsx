@@ -141,12 +141,12 @@ export default function Home() {
 const map = new google.maps.Map(document.getElementById("map-desktop"), {
   center: { lat: 0, lng: 0 },
   zoom: 2,
-  mapId: "345",//process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // ✅ Add this
+  mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // ✅ Add this
 });
         if (id === "map-desktop") mapRef.current = map;
 
         // Add markers
-        markersRef.current.forEach((m) => m.setMap(null));
+/*        markersRef.current.forEach((m) => m.setMap(null));
         markersRef.current = data.rows
           .filter((c) => c.latitude && c.longitude)
           .map((c) => {
@@ -164,7 +164,7 @@ const marker = new google.maps.marker.AdvancedMarkerElement({
             marker.addListener("click", () => infoWindow.open(map, marker));
             return marker;
           });
-
+*/
         // Heatmap
         if (showHeatmap) {
           const heatmapData = data.rows
