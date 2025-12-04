@@ -135,10 +135,10 @@ export default function Home() {
         const el = document.getElementById(id);
         if (!el) return;
 
-        const map = new google.maps.Map(el, {
-  center,
+const map = new google.maps.Map(document.getElementById("map-desktop"), {
+  center: { lat: 0, lng: 0 },
   zoom: 2,
-  mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // <-- your new Map ID
+  mapId: process.env.NEXT_PUBLIC_GOOGLE_MAP_ID, // ✅ Add this
 });
         if (id === "map-desktop") mapRef.current = map;
 
