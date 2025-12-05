@@ -168,6 +168,34 @@ useEffect(() => {
       console.error('Google Maps failed to initialize', err);
     }
   };
+// Auto-update map position when filtered results change
+useEffect(() => {
+  const map = mapRef.current;
+  if (!map || typeof google === 'undefined') return;
+
+  const points = data.rows
+    .filter(c => c.latitude && c.longitude)
+    .map(c => new google.maps.LatLng(c.latitude!, c.longitude!));
+
+  if (points.length === 0) {
+    // Reset view for no results
+    map.setCenter({ lat: 0, lng: 0 });
+    map.setZoom(2);
+    return;
+  }
+
+  if (points.length === 1) {
+    // Single result — zoom strongly
+    map.setCenter(points[0]);
+    map.setZoom(10);
+    return;
+  }
+
+  // Multiple results — fit the map to markers
+  const bounds = new google.maps.LatLngBounds();
+  points.forEach(p => bounds.extend(p));
+  map.fitBounds(bounds);
+}, [data.rows]);
 
   // Run after component mounts
   setTimeout(initializeMap, 0);
