@@ -146,7 +146,7 @@ const map = new google.maps.Map(document.getElementById("map-desktop"), {
         if (id === "map-desktop") mapRef.current = map;
 
         // Add markers
-/*        markersRef.current.forEach((m) => m.setMap(null));
+        markersRef.current.forEach((m) => m.setMap(null));
         markersRef.current = data.rows
           .filter((c) => c.latitude && c.longitude)
           .map((c) => {
@@ -164,7 +164,7 @@ const marker = new google.maps.marker.AdvancedMarkerElement({
             marker.addListener("click", () => infoWindow.open(map, marker));
             return marker;
           });
-*/
+
         // Heatmap
         if (showHeatmap) {
           const heatmapData = data.rows
