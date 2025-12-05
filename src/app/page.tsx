@@ -68,7 +68,7 @@ export default function Home() {
   useEffect(() => {
     const loadLogos = async () => {
       const logosToLoad: Array<{ bankName: string; cardId: number }> = [];
-      
+
       data.rows.forEach((card) => {
         const key = `${card.id}-${card.bank_name}`;
         if (!card.bank_logo && !bankLogos[key] && !logoLoadingRef.current.has(key)) {
@@ -76,9 +76,9 @@ export default function Home() {
           logoLoadingRef.current.add(key);
         }
       });
-      
+
       if (logosToLoad.length === 0) return;
-      
+
       // Load logos in parallel (with a limit to avoid too many requests)
       const batchSize = 10;
       for (let i = 0; i < logosToLoad.length; i += batchSize) {
@@ -105,25 +105,25 @@ export default function Home() {
         );
       }
     };
-    
+
     loadLogos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.rows]);
 
   useEffect(() => {
     // Wait for DOM to be ready
-   
-    
-    // Initialize map
-    
+
+    // Initialize map (left intentionally minimal — preserve any existing initialization elsewhere)
+
     // Handle window resize to fix blank screen issue with debouncing
     let resizeTimeout: NodeJS.Timeout | null = null;
+
     const handleResize = () => {
       // Clear existing timeout
       if (resizeTimeout) {
         clearTimeout(resizeTimeout);
       }
-      
+
       // Debounce resize handler
       resizeTimeout = setTimeout(() => {
         // Handle Google Maps resize
@@ -135,24 +135,36 @@ export default function Home() {
                 document.getElementById('map-desktop') as HTMLElement | null,
                 document.getElementById('map-mobile') as HTMLElement | null,
               ].filter(Boolean) as HTMLElement[];
-              const visible = candidates.find((node) => node && node.offsetParent !== null && node.clientWidth > 0 && node.clientHeight > 0);
+
+              return candidates.find(
+                (node) =>
+                  node &&
+                  node.offsetParent !== null &&
+                  node.clientWidth > 0 &&
+                  node.clientHeight > 0
+              );
             })();
-            
+
             if (currentEl && currentEl.clientWidth > 0 && currentEl.clientHeight > 0) {
               if (mapRef.current.getDiv) {
                 const mapDiv = mapRef.current.getDiv();
-                if (mapDiv && mapDiv.offsetParent !== null && mapDiv.clientWidth > 0 && mapDiv.clientHeight > 0) {
-                  // Trigger resize event
-                  
+                if (
+                  mapDiv &&
+                  mapDiv.offsetParent !== null &&
+                  mapDiv.clientWidth > 0 &&
+                  mapDiv.clientHeight > 0
+                ) {
                   // Force redraw by updating center
                   const center = mapRef.current.getCenter();
                   if (center) {
                     mapRef.current.setCenter(center);
                   }
-                  
-                  // Also try setting the map again to force refresh
+
+                  // Small retry to force refresh
                   setTimeout(() => {
-                    if (mapRef.current) {
+                    if (mapRef.current && mapRef.current.setCenter) {
+                      const c = mapRef.current.getCenter && mapRef.current.getCenter();
+                      if (c) mapRef.current.setCenter(c);
                     }
                   }, 50);
                 } else {
@@ -161,6 +173,8 @@ export default function Home() {
                   setTimeout(() => {
                     if (mapRef.current && typeof google !== 'undefined' && google.maps) {
                       try {
+                        const c = mapRef.current.getCenter && mapRef.current.getCenter();
+                        if (c) mapRef.current.setCenter(c);
                       } catch (e) {
                         console.warn('Map resize failed, may need reinitialization');
                       }
@@ -169,15 +183,22 @@ export default function Home() {
                 }
               } else {
                 // Fallback: just trigger resize
-                google.maps.event.trigger(mapRef.current, 'resize');
+                try {
+                  google.maps.event.trigger(mapRef.current, 'resize');
+                } catch (e) {
+                  // ignore
+                }
               }
-       
+            }
+          } catch (err) {
+            console.warn('Resize handler error', err);
+          }
         }
       }, 150); // Wait 150ms after resize stops
     };
-    
+
     window.addEventListener('resize', handleResize);
-    
+
     // Cleanup function
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -197,6 +218,7 @@ export default function Home() {
   }, [data, showHeatmap]);
 
   const hasNext = offset + limit < data.total;
+  const hasPrev = offset > 0;
 
   // Helper function to get logo for a card
   const getCardLogo = (card: Card): string | null => {
@@ -217,7 +239,11 @@ export default function Home() {
     const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
+    a.href = url;
+    a.download = 'cards.csv';
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
 
@@ -227,7 +253,7 @@ export default function Home() {
       <div className="lg:hidden">
         <div className="bg-white shadow-sm border-b border-gray-200 p-4">
           <h1 className="text-xl font-bold text-gray-900 mb-4 tracking-tight">Credit Card Database</h1>
-          
+
           {/* Mobile Filters - Collapsible */}
           <details className="bg-gray-50 rounded-lg">
             <summary className="p-3 cursor-pointer font-semibold text-gray-800 flex items-center gap-2">
@@ -238,9 +264,9 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Country</label>
-                  <select 
+                  <select
                     className="w-full border border-gray-300 rounded-md px-2 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={filters.country} 
+                    value={filters.country}
                     onChange={(e) => setFilters({ ...filters, country: e.target.value, state: '' })}
                   >
                     <option value="">All Countries</option>
@@ -251,9 +277,9 @@ export default function Home() {
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">State</label>
-                  <select 
+                  <select
                     className="w-full border border-gray-300 rounded-md px-2 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={filters.state} 
+                    value={filters.state}
                     onChange={(e) => setFilters({ ...filters, state: e.target.value })}
                   >
                     <option value="">All States</option>
@@ -265,62 +291,66 @@ export default function Home() {
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Card Number</label>
-                <input 
+                <input
                   className="w-full border border-gray-300 rounded-md px-2 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
                   placeholder="193"
+                  value={filters.cardNumber}
                   onChange={(e) => setFilters({ ...filters, cardNumber: e.target.value })}
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Bank</label>
-                  <input 
+                  <input
                     className="w-full border border-gray-300 rounded-md px-2 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="CIMB"
+                    value={filters.bankName}
                     onChange={(e) => setFilters({ ...filters, bankName: e.target.value })}
                   />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Cardholder</label>
-                  <input 
+                  <input
                     className="w-full border border-gray-300 rounded-md px-2 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Abdul"
-                    value={filters.cardholder} 
+                    value={filters.cardholder}
                     onChange={(e) => setFilters({ ...filters, cardholder: e.target.value })}
                   />
+                </div>
               </div>
             </div>
           </details>
         </div>
-        
+
         {/* Mobile Content */}
         <div className="p-4 space-y-4">
           {/* Mobile Map */}
-              <h3 className="text-base font-bold text-gray-900 flex items-center gap-2 tracking-tight">
-                🌍 Geographic Distribution
-              </h3>
-                <label className="flex items-center gap-1 text-xs text-gray-600">
+          <div className="flex items-center gap-3">
+            <h3 className="text-base font-bold text-gray-900 flex items-center gap-2 tracking-tight">
+              🌍 Geographic Distribution
+            </h3>
+            <label className="flex items-center gap-1 text-xs text-gray-600">
                   <input type="radio" name="mapType" checked={!showHeatmap} onChange={() => setShowHeatmap(false)} />
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  Locations
-                </label>
-                <label className="flex items-center gap-1 text-xs text-gray-600">
+              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+              Locations
+            </label>
+            <label className="flex items-center gap-1 text-xs text-gray-600">
                   <input type="radio" name="mapType" checked={showHeatmap} onChange={() => setShowHeatmap(true)} />
-                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                  Density
-                </label>
-                <button 
-                  className="ml-auto px-3 py-1 text-xs font-semibold bg-blue-600 text-white rounded-md"
-                  onClick={onExportCsv}
-                >
-                  📊 Export
-                </button>
-              </div>
-            </div>
-            <div id="map-mobile" className="w-full h-[300px]" />
+              <div className="w-2 h-2 rounded-full bg-red-500"></div>
+              Density
+            </label>
+            <button
+              className="ml-auto px-3 py-1 text-xs font-semibold bg-blue-600 text-white rounded-md"
+              onClick={onExportCsv}
+            >
+              📊 Export
+            </button>
           </div>
-          
-          {/* Mobile Results */}
+          <div id="map-mobile" className="w-full h-[300px]" />
+        </div>
+
+        {/* Mobile Results */}
+        <div className="p-4">
           <div className="flex items-center justify-between text-sm">
             <div className="text-gray-600">
               {loading && (
@@ -333,8 +363,8 @@ export default function Home() {
             </div>
             {data.total > limit && (
               <div className="flex items-center gap-1">
-                <button 
-                  disabled={!hasPrev} 
+                <button
+                  disabled={!hasPrev}
                   className={`px-2 py-1 text-xs font-semibold border rounded transition-all ${!hasPrev ? 'opacity-50 cursor-not-allowed border-gray-200 text-gray-400' : 'border-gray-300 text-gray-700 hover:bg-gray-50'}`}
                   onClick={() => setOffset(Math.max(0, offset - limit))}
                 >
@@ -343,8 +373,8 @@ export default function Home() {
                 <span className="text-xs text-gray-500 px-2 font-mono">
                   {Math.floor(offset / limit) + 1}/{Math.ceil(data.total / limit)}
                 </span>
-                <button 
-                  disabled={!hasNext} 
+                <button
+                  disabled={!hasNext}
                   className={`px-2 py-1 text-xs font-semibold border rounded transition-all ${!hasNext ? 'opacity-50 cursor-not-allowed border-gray-200 text-gray-400' : 'border-gray-300 text-gray-700 hover:bg-gray-50'}`}
                   onClick={() => setOffset(offset + limit)}
                 >
@@ -353,20 +383,19 @@ export default function Home() {
               </div>
             )}
           </div>
-          
+
           {/* Mobile Cards */}
-          <div className="space-y-3">
+          <div className="mt-4 space-y-3">
             {data?.rows?.map((r) => (
               <div key={r.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0">
                     {getCardLogo(r) ? (
-                      <img 
-                        className="h-10 w-10 rounded-lg object-contain border border-gray-200 p-1 bg-white" 
-                        src={getCardLogo(r)!} 
+                      <img
+                        className="h-10 w-10 rounded-lg object-contain border border-gray-200 p-1 bg-white"
+                        src={getCardLogo(r)!}
                         alt={r.bank_name}
                         onError={(e) => {
-                          // If logo fails to load, hide it and show fallback
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';
                           const fallback = target.nextElementSibling as HTMLElement;
@@ -421,75 +450,75 @@ export default function Home() {
           <div className="p-6">
             <h1 className="text-2xl font-bold text-gray-900 mb-6 tracking-tight">Credit Card Database</h1>
             <div className="bg-gray-50 rounded-lg p-4">
-            <h2 className="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2 tracking-wide">
-              🔍 Advanced Filters
-            </h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Country</label>
-                <select 
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  value={filters.country} 
-                  onChange={(e) => setFilters({ ...filters, country: e.target.value, state: '' })}
-                >
-                  <option value="">All Countries</option>
-                  {options?.countries?.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">State</label>
-                <select 
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  value={filters.state} 
-                  onChange={(e) => setFilters({ ...filters, state: e.target.value })}
-                >
-                  <option value="">All States</option>
-                  {options?.states?.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Card Number</label>
-                <input 
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-mono"
-                  placeholder="193"
-                  value={filters.cardNumber} 
-                  onChange={(e) => setFilters({ ...filters, cardNumber: e.target.value })}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Bank Name</label>
-                <input 
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  placeholder="CIMB"
-                  value={filters.bankName} 
-                  onChange={(e) => setFilters({ ...filters, bankName: e.target.value })}
-                />
-              </div>
-              
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Cardholder Name</label>
-                <input 
-                  className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  placeholder="Abdul"
-                  value={filters.cardholder} 
-                  onChange={(e) => setFilters({ ...filters, cardholder: e.target.value })}
-                />
+              <h2 className="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2 tracking-wide">
+                🔍 Advanced Filters
+              </h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Country</label>
+                  <select
+                    className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    value={filters.country}
+                    onChange={(e) => setFilters({ ...filters, country: e.target.value, state: '' })}
+                  >
+                    <option value="">All Countries</option>
+                    {options?.countries?.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">State</label>
+                  <select
+                    className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    value={filters.state}
+                    onChange={(e) => setFilters({ ...filters, state: e.target.value })}
+                  >
+                    <option value="">All States</option>
+                    {options?.states?.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Card Number</label>
+                  <input
+                    className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-mono"
+                    placeholder="193"
+                    value={filters.cardNumber}
+                    onChange={(e) => setFilters({ ...filters, cardNumber: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Bank Name</label>
+                  <input
+                    className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="CIMB"
+                    value={filters.bankName}
+                    onChange={(e) => setFilters({ ...filters, bankName: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Cardholder Name</label>
+                  <input
+                    className="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="Abdul"
+                    value={filters.cardholder}
+                    onChange={(e) => setFilters({ ...filters, cardholder: e.target.value })}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content - THIS WILL NOW TAKE FULL REMAINING WIDTH */}
-      <div className="flex-1 min-w-0 overflow-auto p-6">
-        <div className="space-y-6 w-full">
+        {/* Main Content - THIS WILL NOW TAKE FULL REMAINING WIDTH */}
+        <div className="flex-1 min-w-0 overflow-auto p-6">
+          <div className="space-y-6 w-full">
             {/* Map Card */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
               <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
@@ -510,13 +539,13 @@ export default function Home() {
                     </label>
                   </div>
                   <div className="flex gap-2">
-                    <button 
+                    <button
                       className="px-4 py-2 text-sm font-semibold bg-gray-100 hover:bg-gray-200 rounded-md transition-all flex items-center gap-2 tracking-wide"
                       onClick={() => setRefreshKey((k) => k + 1)}
                     >
                       🔄 Refresh
                     </button>
-                    <button 
+                    <button
                       className="px-4 py-2 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all flex items-center gap-2 tracking-wide shadow-sm"
                       onClick={onExportCsv}
                     >
@@ -540,8 +569,8 @@ export default function Home() {
               </div>
               {data.total > limit && (
                 <div className="flex items-center gap-2">
-                  <button 
-                    disabled={!hasPrev} 
+                  <button
+                    disabled={!hasPrev}
                     className={`px-4 py-2 text-sm font-semibold border rounded-md transition-all ${!hasPrev ? 'opacity-50 cursor-not-allowed border-gray-200 text-gray-400' : 'border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400'}`}
                     onClick={() => setOffset(Math.max(0, offset - limit))}
                   >
@@ -550,8 +579,8 @@ export default function Home() {
                   <span className="text-sm text-gray-500 px-3 font-mono font-medium">
                     {Math.floor(offset / limit) + 1} of {Math.ceil(data.total / limit)}
                   </span>
-                  <button 
-                    disabled={!hasNext} 
+                  <button
+                    disabled={!hasNext}
                     className={`px-4 py-2 text-sm font-semibold border rounded-md transition-all ${!hasNext ? 'opacity-50 cursor-not-allowed border-gray-200 text-gray-400' : 'border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400'}`}
                     onClick={() => setOffset(offset + limit)}
                   >
@@ -571,7 +600,7 @@ export default function Home() {
                   Showing {offset + 1} - {Math.min(offset + limit, data.total)} of {data.total} records
                 </p>
               </div>
-              
+
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead className="bg-gray-50 border-b border-gray-200">
@@ -591,12 +620,11 @@ export default function Home() {
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-12 w-12">
                               {getCardLogo(r) ? (
-                                <img 
-                                  className="h-12 w-12 rounded-lg object-contain border border-gray-200 p-1 bg-white" 
-                                  src={getCardLogo(r)!} 
+                                <img
+                                  className="h-12 w-12 rounded-lg object-contain border border-gray-200 p-1 bg-white"
+                                  src={getCardLogo(r)!}
                                   alt={r.bank_name}
                                   onError={(e) => {
-                                    // If logo fails to load, hide it and show fallback
                                     const target = e.target as HTMLImageElement;
                                     target.style.display = 'none';
                                     const fallback = target.nextElementSibling as HTMLElement;
@@ -657,4 +685,3 @@ export default function Home() {
     </div>
   );
 }
-
