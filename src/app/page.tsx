@@ -38,7 +38,6 @@ export default function Home() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [bankLogos, setBankLogos] = useState<Record<string, string | null>>({});
   const logoLoadingRef = useRef<Set<string>>(new Set());
-  const canvasResizeObserverRef = useRef<ResizeObserver | null>(null);
   const loader = useMemo(
     () =>
       new Loader({
@@ -73,10 +72,10 @@ export default function Home() {
       .catch(() => {});
   }, [filters.country]);
 
+  // Load bank logos for cards that don't have them
   useEffect(() => {
     const loadLogos = async () => {
       const logosToLoad: Array<{ bankName: string; cardId: number }> = [];
-
       data.rows.forEach((card) => {
         const key = `${card.id}-${card.bank_name}`;
         if (!card.bank_logo && !bankLogos[key] && !logoLoadingRef.current.has(key)) {
@@ -86,7 +85,6 @@ export default function Home() {
       });
 
       if (logosToLoad.length === 0) return;
-
       const batchSize = 10;
       for (let i = 0; i < logosToLoad.length; i += batchSize) {
         const batch = logosToLoad.slice(i, i + batchSize);
@@ -144,7 +142,9 @@ export default function Home() {
 
         if (showHeatmap) {
           heatmap = new google.maps.visualization.HeatmapLayer({
-            data: data.rows.filter(c => c.latitude && c.longitude).map(c => new google.maps.LatLng(c.latitude!, c.longitude!)),
+            data: data.rows
+              .filter(c => c.latitude && c.longitude)
+              .map(c => new google.maps.LatLng(c.latitude!, c.longitude!)),
             map,
           });
           heatmapRef.current = heatmap;
@@ -166,7 +166,7 @@ export default function Home() {
     };
   }, [loader, data.rows, showHeatmap]);
 
-  // --- ADD THIS NEW EFFECT TO MOVE MAP ---
+  // --- NEW: Auto-move map to filtered points ---
   useEffect(() => {
     const map = mapRef.current;
     if (!map || typeof google === 'undefined') return;
@@ -183,15 +183,19 @@ export default function Home() {
       .map(c => new google.maps.LatLng(c.latitude!, c.longitude!));
 
     if (points.length === 0) {
-      map.panTo({ lat: 0, lng: 0 });
+      map.setCenter({ lat: 0, lng: 0 });
       map.setZoom(2);
     } else if (points.length === 1) {
       map.panTo(points[0]);
-      map.setZoom(10);
+      map.setZoom(8);
     } else {
       const bounds = new google.maps.LatLngBounds();
       points.forEach(p => bounds.extend(p));
       map.fitBounds(bounds);
+      setTimeout(() => {
+        const center = bounds.getCenter();
+        if (center) map.panTo(center);
+      }, 200);
     }
   }, [filters, data.rows]);
 
@@ -220,10 +224,10 @@ export default function Home() {
     URL.revokeObjectURL(url);
   }
 
-  // ... (the rest of your existing JSX for mobile and desktop layout stays completely unchanged)
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Existing mobile and desktop layout JSX */}
+      {/* ... Your entire mobile + desktop JSX layout here ... */}
+      {/* No changes to the layout code are needed */}
     </div>
   );
 }
