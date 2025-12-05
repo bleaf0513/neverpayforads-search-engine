@@ -126,50 +126,58 @@ export default function Home() {
 useEffect(() => {
   let map: any;
   let heatmap: any;
-  const initMap = async () => {
-    await loader.load();
 
-    // Decide which element to use based on viewport
-    const mapEl = document.getElementById(window.innerWidth >= 1024 ? 'map-desktop' : 'map-mobile');
-    if (!mapEl) return;
+  const initializeMap = async () => {
+    try {
+      await loader.load();
 
-    map = new google.maps.Map(mapEl, {
-      center: { lat: 0, lng: 0 },
-      zoom: 2,
-    });
-    mapRef.current = map;
+      // Choose correct container
+      const mapEl = document.getElementById(window.innerWidth >= 1024 ? 'map-desktop' : 'map-mobile');
+      if (!mapEl) return;
 
-    // Add markers
-    markersRef.current.forEach((m) => m.setMap(null)); // clear old
-    markersRef.current = [];
-
-    data.rows.forEach((card) => {
-      if (card.latitude && card.longitude) {
-        const marker = new google.maps.Marker({
-          position: { lat: card.latitude, lng: card.longitude },
-          map,
-          title: card.cardholder_name,
-        });
-        markersRef.current.push(marker);
-      }
-    });
-
-    // Add heatmap
-    if (showHeatmap) {
-      heatmap = new google.maps.visualization.HeatmapLayer({
-        data: data.rows
-          .filter(c => c.latitude && c.longitude)
-          .map(c => new google.maps.LatLng(c.latitude!, c.longitude!)),
-        map,
+      // Initialize map
+      map = new google.maps.Map(mapEl, {
+        center: { lat: 0, lng: 0 },
+        zoom: 2,
       });
-      heatmapRef.current = heatmap;
+      mapRef.current = map;
+
+      // Clear old markers
+      markersRef.current.forEach((m) => m.setMap(null));
+      markersRef.current = [];
+
+      // Add markers
+      data.rows.forEach((card) => {
+        if (card.latitude && card.longitude) {
+          const marker = new google.maps.Marker({
+            position: { lat: card.latitude, lng: card.longitude },
+            map,
+            title: card.cardholder_name,
+          });
+          markersRef.current.push(marker);
+        }
+      });
+
+      // Add heatmap if selected
+      if (showHeatmap) {
+        heatmap = new google.maps.visualization.HeatmapLayer({
+          data: data.rows
+            .filter(c => c.latitude && c.longitude)
+            .map(c => new google.maps.LatLng(c.latitude!, c.longitude!)),
+          map,
+        });
+        heatmapRef.current = heatmap;
+      }
+    } catch (err) {
+      console.error('Google Maps failed to initialize', err);
     }
   };
 
-  initMap();
+  // Run after component mounts
+  setTimeout(initializeMap, 0);
 
   return () => {
-    // Cleanup markers & heatmap
+    // Cleanup
     markersRef.current.forEach((m) => m.setMap(null));
     markersRef.current = [];
     if (heatmapRef.current) {
@@ -178,6 +186,7 @@ useEffect(() => {
     }
   };
 }, [loader, data.rows, showHeatmap]);
+
     // Handle window resize to fix blank screen issue with debouncing
     let resizeTimeout: NodeJS.Timeout | null = null;
 
