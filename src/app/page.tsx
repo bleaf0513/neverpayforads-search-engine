@@ -153,6 +153,39 @@ useEffect(() => {
           markersRef.current.push(marker);
         }
       });
+//
+      // If we have marker positions, fit the map to show them
+      try {
+        const points = data.rows.filter((c) => c.latitude && c.longitude);
+        if (points.length > 0) {
+          const bounds = new google.maps.LatLngBounds();
+          markersRef.current.forEach((m) => {
+            try {
+              const pos = m.getPosition && m.getPosition();
+              if (pos) bounds.extend(pos);
+            } catch (e) {
+              // ignore marker without position
+            }
+          });
+
+          // If only a single point, set a reasonable zoom level
+          if (points.length === 1) {
+            const center = bounds.getCenter();
+            if (center) {
+              map.setCenter(center);
+              map.setZoom(8);
+            }
+          } else {
+            map.fitBounds(bounds);
+          }
+        } else {
+          // No valid points: reset to a global view
+          map.setCenter({ lat: 0, lng: 0 });
+          map.setZoom(2);
+        }
+      } catch (err) {
+        // ignore fitBounds errors
+      }
 
       // Add heatmap if selected
       if (showHeatmap) {
