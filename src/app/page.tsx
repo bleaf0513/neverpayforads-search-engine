@@ -330,12 +330,12 @@ export default function Home() {
               🌍 Geographic Distribution
             </h3>
             <label className="flex items-center gap-1 text-xs text-gray-600">
-                  <input type="radio" name="mapType" checked={!showHeatmap} onChange={() => setShowHeatmap(false)} />
+              <input type="radio" name="mapTypeMobile" checked={!showHeatmap} onChange={() => setShowHeatmap(false)} />
               <div className="w-2 h-2 rounded-full bg-blue-500"></div>
               Locations
             </label>
             <label className="flex items-center gap-1 text-xs text-gray-600">
-                  <input type="radio" name="mapType" checked={showHeatmap} onChange={() => setShowHeatmap(true)} />
+              <input type="radio" name="mapTypeMobile" checked={showHeatmap} onChange={() => setShowHeatmap(true)} />
               <div className="w-2 h-2 rounded-full bg-red-500"></div>
               Density
             </label>
@@ -530,12 +530,12 @@ export default function Home() {
                     <label className="flex items-center gap-2 text-sm text-gray-600">
                       <div className="w-3 h-3 rounded-full bg-blue-500"></div>
                       Card Locations
-                      <input type="radio" name="mapType" className="hidden" checked={!showHeatmap} onChange={() => setShowHeatmap(false)} />
+                      <input type="radio" name="mapTypeDesktop" className="hidden" checked={!showHeatmap} onChange={() => setShowHeatmap(false)} />
                     </label>
                     <label className="flex items-center gap-2 text-sm text-gray-600">
                       <div className="w-3 h-3 rounded-full bg-red-500"></div>
                       High Density
-                      <input type="radio" name="mapType" className="hidden" checked={showHeatmap} onChange={() => setShowHeatmap(true)} />
+                      <input type="radio" name="mapTypeDesktop" className="hidden" checked={showHeatmap} onChange={() => setShowHeatmap(true)} />
                     </label>
                   </div>
                   <div className="flex gap-2">
